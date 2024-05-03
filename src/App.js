@@ -1,23 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
-
+import { useState } from 'react';
 function App() {
+  const [search, setSearch] = useState("");
+
+  const arr = ["Mumbai","Delhi","Bangalore (Bengaluru)","Hyderabad","Ahmedabad","Chennai","Kolkata(Calcutta)","Surat","Pune","Jaipur","Lucknow","Kanpur", "Nagpur","Visakhapatnam","Indore","Thane","Bhopal","Patna", "Vadodara(Baroda)","Ghaziabad"]
+  function handleChange(e) {
+    setSearch(e.target.value);
+  }
+  let filtered = arr.filter((item) => item.toLowerCase().includes(search.toLowerCase()));
+  if (filtered.length === 0) {
+    filtered = ["No Results Found"];
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="main">
+      <div className='container'>
+        <label htmlFor="input">Search Bar : </label>
+        <input
+          type="text"
+          placeholder='Search here...'
+          id="input"
+          onChange={handleChange}
+        />
+        <ul>
+          {filtered.map((element, ind) => (
+            <li key={ind}>{element}</li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

@@ -1,71 +1,101 @@
-# Getting Started with Create React App
+# React Search Bar Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project implements a simple search bar component using React. Users can search for cities from a predefined list and view the matching results in real-time.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Users can type in the search bar to filter the list of cities.
+- The search is case-insensitive.
+- Matching results are displayed in real-time as the user types.
+- If no matching results are found, a message "No Results Found" is displayed.
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Explanation of Code
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### App.js
 
-### `npm test`
+```jsx
+import './App.css';
+import { useState } from 'react';
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+function App() {
+  // State to hold the search query entered by the user
+  const [search, setSearch] = useState("");
 
-### `npm run build`
+  // Array of cities
+  const cities = ["Mumbai", "Delhi", "Bangalore (Bengaluru)", "Hyderabad", "Ahmedabad", "Chennai", "Kolkata (Calcutta)", "Surat", "Pune", "Jaipur", "Lucknow", "Kanpur", "Nagpur", "Visakhapatnam", "Indore", "Thane", "Bhopal", "Patna", "Vadodara (Baroda)", "Ghaziabad"];
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  // Function to handle changes in the search input
+  function handleChange(e) {
+    setSearch(e.target.value);
+  }
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  // Filtering the array of cities based on the search query
+  const filteredCities = cities.filter(city =>
+    city.toLowerCase().includes(search.toLowerCase())
+  );
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+  // If no matching results are found, display a message
+  const displayCities = filteredCities.length ? filteredCities : ["No Results Found"];
 
-### `npm run eject`
+  return (
+    <div className="main">
+      <div className="container">
+        <label htmlFor="input">Search Bar:</label>
+        <input
+          type="text"
+          placeholder="Search here..."
+          id="input"
+          onChange={handleChange}
+        />
+        <ul>
+          {displayCities.map((city, index) => (
+            <li key={index}>{city}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+export default App;
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **useState**: The `useState` hook is used to define the state variable `search`, which holds the current search query entered by the user.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **handleChange**: This function is called whenever the input value changes. It updates the `search` state with the new value entered by the user.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- **filteredCities**: This variable holds the filtered array of cities based on the search query. It uses the `filter` method to check if each city includes the search query (case-insensitive).
 
-## Learn More
+## Getting Started
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. Clone the repository:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+   ```
+   git clone https://github.com/AmriteshRaj123/Search-Bar_React.git
+   ```
 
-### Code Splitting
+2. Install dependencies:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+   ```
+   npm install
+   ```
 
-### Analyzing the Bundle Size
+3. Start the development server:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+   ```
+   npm start
+   ```
 
-### Making a Progressive Web App
+4. Open your web browser and navigate to [http://localhost:3000](http://localhost:3000) to view the app.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Built With
 
-### Advanced Configuration
+- React - A JavaScript library for building user interfaces
+- CSS - For styling the application
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Author
 
-### Deployment
+Amritesh Raj
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# Search-Bar_React
